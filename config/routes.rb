@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'users/new'
   root 'static_pages#top'
-  get 'static_pages/contact'
+  get '/contact', to: 'static_pages#contact'
+  get '/help', to: 'static_pages#help'
+  get '/signup', to: 'users#new'
 end
