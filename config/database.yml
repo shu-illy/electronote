@@ -9,24 +9,24 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  username: <%= ENV["ELECTRONOTE_DB_USERNAME"] %>
+  password: <%= ENV["ELECTRONOTE_DB_PASSWORD"] %>
+  host: localhost
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: electronote_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: electronote_test
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   # For details on connection pooling, see Rails configuration guide
   # https://railsguides.jp/configuring.html#データベース接続をプールする
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: electro_note_production
-  username: electro_note
-  password: <%= ENV['ELECTRO_NOTE_DATABASE_PASSWORD'] %>
+  database: electronote_production
+  

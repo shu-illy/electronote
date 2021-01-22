@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.3'
+gem 'mysql2'
 gem 'bcrypt',         '3.1.13'
 gem 'bootstrap-sass', '3.4.1'
 gem 'puma',       '4.3.6'
@@ -12,7 +13,7 @@ gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.5', require: false
 
 group :development, :test do
-  gem 'sqlite3', '1.4.1'
+  # gem 'sqlite3', '1.4.1'
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 end
 
