@@ -1,5 +1,5 @@
 {
-  "name": "eleclip",
+  "name": "electronote",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",

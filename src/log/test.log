@@ -163,7 +163,7 @@ Processing by StaticPagesController#contact as HTML
   Rendering static_pages/contact.html.erb within layouts/application
   Rendered static_pages/contact.html.erb within layouts/application (Duration: 1.5ms | Allocations: 221)
 [Webpacker] Compiling…
-[Webpacker] Compiled all packs in /Users/shilly/programming/webapp/eleclip/public/packs-test
+[Webpacker] Compiled all packs in /Users/shilly/programming/webapp/electronote/public/packs-test
 [Webpacker] Hash: 5944967b066e9b09ef48
 Version: webpack 4.46.0
 Time: 792ms

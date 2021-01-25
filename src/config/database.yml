@@ -10,9 +10,7 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
   username: root
-  password: <%= ENV.fetch('ROOT_DB_PASSWORD', 'pass') %>
-  # username: <%= ENV.fetch('ELECTRONOTE_DB_USERNAME', 'user') %>
-  # password: <%= ENV.fetch('ELECTRONOTE_DB_PASSWORD', 'pass') %>
+  password: <%= ENV['ROOT_DB_PASSWORD'] %>
   host: db
 
 development:
@@ -30,5 +28,6 @@ production:
   <<: *default
   # For details on connection pooling, see Rails configuration guide
   # https://railsguides.jp/configuring.html#データベース接続をプールする
-  database: electronote_production
+  database: <%= ENV['APP_DATABASE'] %>
+  username: <%= ENV['APP_DATABASE_'] %>
   
