@@ -17,7 +17,7 @@ jobs:
       - image: circleci/ruby:2.7
       - image: circleci/mysql:5.5
         environment:
-          MYSQL_ROOT_PASSWORD: 9mltmfny
+          MYSQL_ROOT_PASSWORD: rootpass
           MYSQL_DATABASE: electronote_test
           MYSQL_USER: root
     environment:
