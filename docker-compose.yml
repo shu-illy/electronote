@@ -7,18 +7,18 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - ./src/db/mysql_data:/var/lib/mysql
-    env_file: dev.env
+    env_file: .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_DB_PASSWORD}
-      MYSQL_DATABASE: ${APP_DB_DEVELOPMENT}
-      MYSQL_USER: ${APP_DB_USERNAME}
-      MYSQL_PASSWORD: ${APP_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ROOT_DB_PASSWORD_DEV}
+      MYSQL_DATABASE: ${APP_DB_DEV}
+      MYSQL_USER: ${APP_DB_USERNAME_DEV}
+      MYSQL_PASSWORD: ${APP_DB_PASSWORD_DEV}
   web:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
       - ./src:/app
-    env_file: dev.env
+    env_file: .env
     ports:
       - "3000:3000"
     depends_on:
