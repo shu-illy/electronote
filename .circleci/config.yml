@@ -12,6 +12,9 @@ jobs:
       - checkout:
             path: ~/electronote
       - run:
+          name: make dummy envfile
+          command: touch .env
+      - run:
           name: docker-compose build
           command: docker-compose build
       - run:
