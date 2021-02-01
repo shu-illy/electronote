@@ -42,7 +42,7 @@ jobs:
     docker:
       - image: circleci/classic:edge
     steps:
-      - checkout:
+      - checkout
       - add_ssh_keys:
       - run: ssh ${USER_NAME}@${HOST_NAME} 'cd electronote && git pull && docker-compose run rails db:migrate'
       # - run
