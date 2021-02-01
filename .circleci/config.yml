@@ -5,8 +5,8 @@ orbs:
 
 jobs:
   build:
-    machine:
-      - image: circleci/classic:edge
+    docker:
+      - image: circleci/ruby:2.7
     working_directory: ~/electronote
     steps:
       - checkout:
@@ -39,8 +39,8 @@ jobs:
           command: bundle exec rails test
 
   deploy:
-    machine:
-      - image: circleci/classic:edge
+    docker:
+      - image: circleci/ruby:2.7
     steps:
       - checkout
       - add_ssh_keys
