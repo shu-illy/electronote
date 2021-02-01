@@ -5,8 +5,8 @@ orbs:
 
 jobs:
   build:
-    docker:
-      - image: circleci/ruby:2.7
+    machine:
+      - image: circleci/classic:edge
     working_directory: ~/electronote
     steps:
       - checkout:
