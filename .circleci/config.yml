@@ -40,6 +40,9 @@ jobs:
       - checkout:
           path: ~/electronote
       - run:
+          name: make dummy envfile
+          command: touch .env
+      - run:
           name: rails db:migrate
           command: docker-compose exec app rails db:migrate
       - run:
@@ -53,6 +56,9 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys
+      - run:
+          name: make dummy envfile
+          command: touch .env
       - run:
           name: ssh
           command: ssh ${USER_NAME}@{HOST_NAME} 'cd /var/www/rails/electronote && git pull && docker-compose run app rails s'
