@@ -41,7 +41,10 @@ jobs:
           path: ~/electronote
       - ruby/install-deps
       - run:
-          name: DB setup
+          name: DB create
+          command: bundle exec rails db:create
+      - run:
+          name: DB migrate
           command: bundle exec rails db:migrate
       - run:
           name: test
