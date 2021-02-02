@@ -13,9 +13,9 @@ jobs:
     steps:
       - checkout:
             path: ~/electronote
-      - run:
-          name: make dummy envfile
-          command: touch .env
+      # - run:
+      #     name: make dummy envfile
+      #     command: touch .env
       - run:
           name: docker-compose build
           command: docker-compose build
@@ -42,7 +42,7 @@ jobs:
       #     command: touch .env
       - run:
           name: rails db:create
-          command: docker-compose exec app rails db:create
+          command: docker-compose run app rails db:create
       - run:
           name: rails db:migrate
           command: docker-compose exec app rails db:migrate
