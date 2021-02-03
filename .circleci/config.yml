@@ -67,7 +67,7 @@ jobs:
           version: 19.03.13
       - add_ssh_keys:
           fingerprints:
-            -　"c5:50:97:f7:f6:1d:d8:b9:4c:43:69:e7:66:7e:ff:ce"
+            -　"94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
       - run:
           name: ssh
           command: ssh ${USER_NAME}@{HOST_NAME} 'cd /var/www/rails/electronote && git pull && docker-compose run app rails s'
