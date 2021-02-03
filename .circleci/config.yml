@@ -67,8 +67,7 @@ jobs:
       - setup_remote_docker:
           version: 19.03.13
       - add_ssh_keys:
-          fingerprints:
-            -　"94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
+          fingerprints: "94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
       - deploy:
           name: Capistrano deploy
           command: bundle exec cap production deploy
