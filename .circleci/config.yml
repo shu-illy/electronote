@@ -49,7 +49,6 @@ jobs:
           name: test
           command: bundle exec rails test
 
-
   deploy:
     docker:
       - image: circleci/ruby:2.7
