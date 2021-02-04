@@ -1,11 +1,13 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@1.0
+  ruby: circleci/ruby@1.1.0
 
 jobs:
   build:
     docker:
       - image: circleci/ruby:2.7
+        environment:
+          BUNDLER_VERSION: 2.1.4
     working_directory: ~/electronote
     steps:
       - checkout:
@@ -14,6 +16,8 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:2.7
+        environment:
+          BUNDLER_VERSION: 2.1.4
       - image: circleci/mysql:8
         command: --default-authentication-plugin=mysql_native_password
         environment:
@@ -42,6 +46,8 @@ jobs:
   deploy:
     docker:
       - image: circleci/ruby:2.7
+        environment:
+          BUNDLER_VERSION: 2.1.4
       - image: circleci/mysql:8
         command: --default-authentication-plugin=mysql_native_password
         environment:
