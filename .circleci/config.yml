@@ -68,6 +68,9 @@ jobs:
           version: 19.03.13
       - add_ssh_keys:
           fingerprints: "94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
+      - run:
+          name: Bundler update
+          command: bundle update --bundler
       - deploy:
           name: Capistrano deploy
           command: bundle exec cap production deploy
