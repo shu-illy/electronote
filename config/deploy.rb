@@ -2,7 +2,7 @@
 lock "~> 3.15.0"
 
 set :application, "electronote"
-set :repo_url, "git@example.com:shu-illy/electronote.git"
+set :repo_url, "git@github.com:shu-illy/electronote.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
