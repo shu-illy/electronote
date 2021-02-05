@@ -55,7 +55,6 @@ jobs:
             MYSQL_DATABASE: electronote_production
             MYSQL_USER: root
             MYSQL_ALLOW_EMPTY_PASSWORD: true
-      - image: circleci/nginx
     environment:
       APP_DATABASE_HOST: "127.0.0.1"
     working_directory: ~/electronote
