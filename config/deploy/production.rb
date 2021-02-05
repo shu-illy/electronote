@@ -60,6 +60,8 @@
 #     # password: "please use keys"
 #   }
 
+config.require_master_key = true
+
 server '18.180.49.212', user: 'shu', roles: %w[app db web]
 
 set :ssh_options, {
