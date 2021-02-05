@@ -68,12 +68,6 @@ jobs:
       - deploy:
           name: Capistrano deploy
           command: bundle exec cap production deploy
-      - run:
-          name: Nginx conf copy
-          command: cp containers/nginx/electronote.conf /etc/nginx/conf.d/electronote.conf
-      - run:
-          name: Nginx restart
-          command: sudo service nginx restart
 
 workflows:
   version: 2
