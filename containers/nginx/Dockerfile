@@ -4,7 +4,7 @@ FROM nginx:1.15.8
 RUN rm -f /etc/nginx/conf.d/*
 
 # Nginxの設定ファイルをコンテナにコピー
-ADD nginx.conf /etc/nginx/conf.d/electronote.conf
+ADD ./nginx.conf /etc/nginx/conf.d/electronote.conf
 # COPY ../public/index.html /app/public/index.html
 
 # ビルド完了後にNginxを起動
