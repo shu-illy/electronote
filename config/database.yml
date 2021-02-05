@@ -27,7 +27,7 @@ test:
 
 production:
   <<: *default
-  host: <%= ENV.fetch("APP_DATABASE_HOST") { 'db' } %>
+  host: <%= ENV.fetch("APP_DATABASE_HOST") { '127.0.0.1' } %>
   # For details on connection pooling, see Rails configuration guide
   # https://railsguides.jp/configuring.html#データベース接続をプールする
   # database: <%= ENV['APP_DATABASE_PRODUCTION'] %>
