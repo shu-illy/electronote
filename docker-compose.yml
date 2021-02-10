@@ -33,12 +33,14 @@ services:
     build:
       context: .
       dockerfile:  ./docker/nginx/Dockerfile
-    volumes:
-      - public-data:/electronote/public
-      - tmp-data:/electronote/tmp
+    # volumes:
+    #   - public-data:/electronote/public
+    #   - tmp-data:/electronote/tmp
     ports:
       - 80:80
     depends_on:
+      - app
+    volumes_from:
       - app
 volumes:
   public-data:

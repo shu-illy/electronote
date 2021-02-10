@@ -12,7 +12,7 @@ RUN bundle config --local set path 'vendor/bundle' && \
     bundle install
 
 # *.sockを配置するディレクトリを作成
-RUN mkdir -p /var/tmp/sockets
+RUN mkdir -p /electronote/tmp/sockets
 
 EXPOSE 3000
 
