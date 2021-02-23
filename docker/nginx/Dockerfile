@@ -15,7 +15,7 @@ RUN rm -f /etc/nginx/conf.d/*
 # Nginxの設定ファイルをコンテナにコピー
 ADD ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
-ADD ./docker/nginx/index.html /index.html
+# ADD ./docker/nginx/index.html /index.html
 # COPY ../public/index.html /app/public/index.html
 
 # ビルド完了後にNginxを起動
