@@ -28,7 +28,7 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
   config.assets.enabled = true
-  
+
   config.public_file_server.enabled = true
 
 
@@ -49,6 +49,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
+  config.ssl_options = { redirect: { exclude: -> request { request.path =~ /healthcheck } } }
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

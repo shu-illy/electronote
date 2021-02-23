@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/signup', to: 'users#new'
   resources :users
   get '/healthcheck', to: 'health_check#index'
+  get '/healthcheck' => lambda { |env| [200, { 'Content-Type' => 'text/plain' }, ['Healthy']] }
 end
