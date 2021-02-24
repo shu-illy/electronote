@@ -1,0 +1,89 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.0
+  aws-ecr: circleci/aws-ecr@6.7.0
+  aws-ecs: circleci/aws-ecs@1.1.0
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7
+        environment:
+
+          # BUNDLER_VERSION: 2.1.4
+    working_directory: ~/electronote
+    steps:
+      - checkout:
+            path: ~/electronote
+      - ruby/install-deps
+  test:
+    docker:
+      - image: circleci/ruby:2.7
+        environment:
+          BUNDLER_VERSION: 2.1.4
+      - image: circleci/mysql:8
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+    environment:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      APP_DATABASE: electronote_test
+      APP_DATABASE_HOST: "127.0.0.1"
+      APP_DATABASE_USERNAME: root
+      APP_DATABASE_PASSWORD: rootpass
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+    working_directory: ~/electronote
+    steps:
+      - checkout:
+          path: ~/electronote
+      - ruby/install-deps
+      - run:
+          name: DB setup
+          command: bundle exec rails db:migrate
+      - run:
+          name: test
+          command: bundle exec rails test
+
+
+  deploy:
+    docker:
+      - image: circleci/ruby:2.7
+        environment:
+          BUNDLER_VERSION: 2.1.4
+      - image: circleci/mysql:8
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpass
+            MYSQL_DATABASE: electronote_production
+            MYSQL_USER: root
+            MYSQL_ALLOW_EMPTY_PASSWORD: true
+    environment:
+      APP_DATABASE_HOST: "127.0.0.1"
+    working_directory: ~/electronote
+    steps:
+      - checkout
+      - ruby/install-deps
+      - setup_remote_docker:
+          version: 19.03.13
+      - add_ssh_keys:
+          fingerprints: "94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
+      - deploy:
+          name: Capistrano deploy
+          command: bundle exec cap production deploy
+
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main

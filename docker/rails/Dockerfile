@@ -8,8 +8,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 WORKDIR /electronote
 COPY . /electronote
 
-RUN bundle config --local set path 'vendor/bundle' && \
+RUN bundle config --local set path './vendor/bundle' && \
     bundle install
+
+# RUN bundle install --path ./vendor/bundle
 
 # *.sockを配置するディレクトリを作成
 RUN rm -rf /electronote/tmp/*

@@ -5,16 +5,16 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.1.0
 
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.7
-        environment:
-          BUNDLER_VERSION: 2.1.4
-    working_directory: ~/electronote
-    steps:
-      - checkout:
-            path: ~/electronote
-      - ruby/install-deps
+  # build:
+  #   docker:
+  #     - image: circleci/ruby:2.7
+  #       environment:
+  #         BUNDLER_VERSION: 2.1.4
+  #   working_directory: ~/electronote
+  #   steps:
+  #     - checkout:
+  #           path: ~/electronote
+  #     - ruby/install-deps
   test:
     docker:
       - image: circleci/ruby:2.7
@@ -23,15 +23,19 @@ jobs:
       - image: circleci/mysql:8
         command: --default-authentication-plugin=mysql_native_password
         environment:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_USER: root
           MYSQL_ROOT_PASSWORD: rootpass
           MYSQL_DATABASE: electronote_test
-          MYSQL_USER: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
     environment:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      APP_DATABASE_HOST: "127.0.0.1"
+      # APP_DATABASE: electronote_test
+      # APP_DATABASE_USERNAME: root
+      # APP_DATABASE_PASSWORD: rootpass
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
-      APP_DATABASE_HOST: "127.0.0.1"
-      RAILS_ENV: 'test'
     working_directory: ~/electronote
     steps:
       - checkout:
@@ -39,49 +43,53 @@ jobs:
       - ruby/install-deps
       - run:
           name: DB setup
-          command: bundle exec rails db:migrate
+          command: bundle exec rails db:schema:load --trace
       - run:
           name: test
           command: bundle exec rails test
-
-
-  deploy:
-    docker:
-      - image: circleci/ruby:2.7
-        environment:
-          BUNDLER_VERSION: 2.1.4
-      - image: circleci/mysql:8
-        command: --default-authentication-plugin=mysql_native_password
-        environment:
-            MYSQL_ROOT_PASSWORD: rootpass
-            MYSQL_DATABASE: electronote_production
-            MYSQL_USER: root
-            MYSQL_ALLOW_EMPTY_PASSWORD: true
-    environment:
-      APP_DATABASE_HOST: "127.0.0.1"
-    working_directory: ~/electronote
-    steps:
-      - checkout
-      - ruby/install-deps
-      - setup_remote_docker:
-          version: 19.03.13
-      - add_ssh_keys:
-          fingerprints: "94:d9:41:e9:47:f4:9e:9e:16:e1:41:08:8e:6a:79:34"
-      - deploy:
-          name: Capistrano deploy
-          command: bundle exec cap production deploy
+      # TODO: RubocopとRSpec構築したらコメントアウト外して、上のテストを削除
+      # - ruby/rubocop-check
+      # - ruby/rspec-test
 
 workflows:
-  version: 2
-  build_test_and_deploy:
+  test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
+      - test
+  deploy-web:
+    jobs:
+      - aws-ecr/build-and-push-image:
           filters:
             branches:
               only: main
+          account-url: AWS_ACCOUNT_URL
+          create-repo: true
+          dockerfile: ./docker/nginx/Dockerfile
+          repo: "electronote-web"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "elec-ec2-task"
+          cluster-name: "elec-ec2-cluster"
+          service-name: "elec-ecs-service"
+          container-image-name-updates: 'container=web,image-and-tag=${AWS_ACCOUNT_URL}/electronote-web:${CIRCLE_SHA1}'
+  deploy-app:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          filters:
+            branches:
+              only: main
+          account-url: AWS_ACCOUNT_URL
+          create-repo: true
+          dockerfile: ./docker/rails/Dockerfile
+          repo: "$electronote_app"
+          region: AWS_REGION
+          tag: "${CIRCLE_SHA1}"
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: "elec-ec2-task"
+          cluster-name: "elec-ec2-cluster"
+          service-name: "elec-ecs-service"
+          container-image-name-updates:  'container=app,image-and-tag=${AWS_ACCOUNT_URL}/$electronote_app:${CIRCLE_SHA1}'
