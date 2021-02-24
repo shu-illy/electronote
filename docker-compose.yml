@@ -23,7 +23,7 @@ services:
     volumes:
       - .:/electronote
       - /var/tmp
-      - bundle_path:/usr/local/bundle
+      - bundle_path:/electronote/vendor/bundle
     # env_file: 
     #   - .env
     # environment:
@@ -37,8 +37,7 @@ services:
       context: .
       dockerfile:  ./docker/nginx/Dockerfile
     volumes:
-      - public-data:/electronote/public
-      - tmp-data:/electronote/tmp
+      - nginx_log-data:/var/log/nginx
     ports:
       - 80:80
     depends_on:
@@ -49,5 +48,6 @@ volumes:
   public-data:
   tmp-data:
   log-data:
+  nginx_log-data:
   mysql-data:
   bundle_path:
