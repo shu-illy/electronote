@@ -14,6 +14,8 @@ gem 'unicorn'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
   # gem 'capistrano'
   # gem 'capistrano-bundler'
   # gem 'capistrano-rails'

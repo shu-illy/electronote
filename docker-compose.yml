@@ -11,8 +11,8 @@ services:
     #   - .env
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_USER: electronote
-      MYSQL_PASSWORD: password
+      # MYSQL_USER: electronote
+      # MYSQL_PASSWORD: password
   app:
     build:
       context: .
@@ -23,8 +23,11 @@ services:
     volumes:
       - .:/electronote
       - /var/tmp
+      - bundle_path:/bundle
     # env_file: 
     #   - .env
+    environment:
+      - BUNDLE_PATH=/bundle
     ports:
       - "3000:3000"
     depends_on:
@@ -47,3 +50,4 @@ volumes:
   tmp-data:
   log-data:
   mysql-data:
+  bundle_path:

@@ -47,3 +47,5 @@ yarn-debug.log*
 output.md
 .env
 sys_config.dio.svg
+
+vendor/bundle/*

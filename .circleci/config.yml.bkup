@@ -5,21 +5,22 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.1.0
 
 jobs:
-  # build:
-  #   docker:
-  #     - image: circleci/ruby:2.7
-  #       environment:
-  #         BUNDLER_VERSION: 2.1.4
-  #   working_directory: ~/electronote
-  #   steps:
-  #     - checkout:
-  #           path: ~/electronote
-  #     - ruby/install-deps
+  build:
+    docker:
+      - image: circleci/ruby:2.7
+        environment:
+
+          # BUNDLER_VERSION: 2.1.4
+    working_directory: ~/electronote
+    steps:
+      - checkout:
+            path: ~/electronote
+      - ruby/install-deps
   test:
     docker:
       - image: circleci/ruby:2.7
-        # environment:
-        #   BUNDLER_VERSION: 2.1.4
+        environment:
+          BUNDLER_VERSION: 2.1.4
       - image: circleci/mysql:8
         command: --default-authentication-plugin=mysql_native_password
         environment:
