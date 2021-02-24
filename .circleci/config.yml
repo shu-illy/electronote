@@ -24,13 +24,16 @@ jobs:
         command: --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_USER: root
+          MYSQL_ROOT_PASSWORD: rootpass
+          MYSQL_DATABASE: electronote_test
     environment:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
-      APP_DATABASE: electronote_test
       APP_DATABASE_HOST: "127.0.0.1"
-      APP_DATABASE_USERNAME: root
-      APP_DATABASE_PASSWORD: rootpass
+      # APP_DATABASE: electronote_test
+      # APP_DATABASE_USERNAME: root
+      # APP_DATABASE_PASSWORD: rootpass
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
     working_directory: ~/electronote
