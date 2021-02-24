@@ -83,7 +83,7 @@ workflows:
           account-url: AWS_ACCOUNT_URL
           create-repo: true
           dockerfile: ./docker/rails/Dockerfile
-          repo: "$electronote_app"
+          repo: "electronote_app"
           region: AWS_REGION
           tag: "${CIRCLE_SHA1}"
       - aws-ecs/deploy-service-update:
