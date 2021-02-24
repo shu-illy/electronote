@@ -23,11 +23,11 @@ services:
     volumes:
       - .:/electronote
       - /var/tmp
-      - bundle_path:/bundle
+      - bundle_path:/usr/local/bundle
     # env_file: 
     #   - .env
-    environment:
-      - BUNDLE_PATH=/bundle
+    # environment:
+      # - BUNDLE_PATH=/electronote/vendor/bundle
     ports:
       - "3000:3000"
     depends_on:
@@ -36,9 +36,9 @@ services:
     build:
       context: .
       dockerfile:  ./docker/nginx/Dockerfile
-    # volumes:
-    #   - public-data:/electronote/public
-    #   - tmp-data:/electronote/tmp
+    volumes:
+      - public-data:/electronote/public
+      - tmp-data:/electronote/tmp
     ports:
       - 80:80
     depends_on:
