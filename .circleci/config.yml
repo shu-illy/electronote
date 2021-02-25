@@ -52,6 +52,7 @@ jobs:
       # - ruby/rubocop-check
       # - ruby/rspec-test
   build-and-push-image:
+    executor: container
     steps:
       - aws-ecr/build-and-push-image:
           filters:
@@ -90,6 +91,7 @@ jobs:
               --task-definition elec-ec2-task \
               --overrides file://docker/run_task_db_migrate_production.json
   deploy-service-update:
+    executor: container
     steps:
       - aws-ecs/deploy-service-update:
           requires:
