@@ -110,10 +110,14 @@ workflows:
   build-migrate-and-deploy:
     jobs:
       - build-and-push-image:
+          requires: 
+            - test
           filters:
             branches:
               only: main
       - db-migrate-on-task-run:
+          requires:
+            - build-and-push-image
           filters:
             branches:
               only: main
