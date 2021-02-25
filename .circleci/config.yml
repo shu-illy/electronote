@@ -113,15 +113,15 @@ workflows:
       - test
   build-migrate-and-deploy:
     jobs:
-      - build-and-push-image
+      - build-and-push-image:
           filters:
             branches:
               only: main
-      - db-migrate-on-task-run
+      - db-migrate-on-task-run:
           filters:
             branches:
               only: main
-      - deploy-service-update
+      - deploy-service-update:
           filters:
             branches:
               only: main
