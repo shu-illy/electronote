@@ -6,20 +6,21 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get update -qq \
   && apt-get install -y nodejs yarn build-essential
 WORKDIR /electronote
-COPY . /electronote
+COPY Gemfile Gemfile.lock package.json yarn.lock /electronote/
 
-RUN bundle config --local set path './vendor/bundle' && \
+RUN bundle config set path './vendor/bundle' && \
     bundle install
 
 # RUN bundle install --path ./vendor/bundle
+
+COPY . /electronote
 
 # *.sockを配置するディレクトリを作成
 RUN rm -rf /electronote/tmp/*
 RUN mkdir -p /electronote/tmp/sockets
 RUN mkdir -p /electronote/tmp/pids
 
-COPY start.sh /start.sh
-RUN chmod 744 /start.sh
-CMD ["sh", "/start.sh"]
+RUN chmod 744 /electronote/start.sh
+CMD ["sh", "/electronote/start.sh"]
 
 EXPOSE 3000

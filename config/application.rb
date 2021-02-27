@@ -10,6 +10,10 @@ module Electronote
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
+    config.generators do |g|
+      g.test_framework :rspec,
+                        controller_specs: false
+    end
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
