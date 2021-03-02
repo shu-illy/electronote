@@ -8,48 +8,40 @@ RSpec.describe "IntegrationTest of user login", type: :request do
       get login_path
     end
 
-    context "invalid user" do
+    context "valid email and invalid password" do
       it "fails in login and displays flash message" do
-        post login_path, params: { session: { email:"", password:"" } }
-        expect(response).to have_http_status(:success)
-
-        # sessions/newがレンダリングされること
         expect(response).to render_template("sessions/new")
-
-        # flashメッセージが表示されること
+        post login_path, params: { session: {email: @user.email, password: "invalid" } }
+        expect(is_logged_in?).to be_falsey, "invalid log_in is not rejected"
+        expect(response).to render_template("sessions/new")
         expect(flash[:danger]).to be_truthy, "flash message is empty"
-
-        # 別のページ(Topページなど)にいったん移動する
         get root_path
-
-        # 移動先のページでフラッシュメッセージが表示されていないこと
         expect(flash[:danger]).to be_falsey, "flash message is not empty"
       end
     end
 
     context "valid user" do
       include UsersHelper
-      it "succeeds in login" do
+      it "succeeds in login followed by logout" do
+        expect(response).to render_template("sessions/new")
         post login_path, params: { session: { email: @user.email, password: @user.password } }
-        expect(response).to redirect_to(@user)
+        expect(is_logged_in?).to be_truthy, "not logged in"
+        expect(response).to redirect_to(@user), "not redirected to @user"
         follow_redirect!
-        expect(response).to render_template("users/show")
+        expect(response).to render_template("users/show"), "does not render 'user/show' template"
         assert_select "a[href=?]", login_path, count: 0
         assert_select "a[href=?]", logout_path
         assert_select "a[href=?]", user_path(@user)
+        delete logout_path
+        expect(is_logged_in?).to be_falsey, "not lotted out"
+        expect(response).to redirect_to(root_url), "not redirected to root_url"
+        follow_redirect!
+        assert_select "a[href=?]", login_path
+        assert_select "a[href=?]", logout_path, count: 0
+        assert_select "a[href=?]", user_path(@user), count: 0
+
       end
     end
 
-    context "login with valid email/invalid password" do
-      it "rails in login" do
-        expect(response).to render_template("sessions/new")
-        post login_path, params: { session: {email: @user.email, password: "invalid" } }
-        expect(response).to render_template("sessions/new")
-        expect(flash[:danger]).to be_truthy, "flash message is empty"
-        get root_path
-        expect(flash[:danger]).to be_falsey, "flash message is not empty"
-      end
-    end
-    
   end
 end
