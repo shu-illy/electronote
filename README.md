@@ -26,7 +26,7 @@
 ### バックエンド
 - Ruby on Rails6.0
 ### テスト
-
+- RSpec
 ### データベース
 - MySQL
 - 
