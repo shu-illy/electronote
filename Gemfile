@@ -5,12 +5,16 @@ gem 'rails',      '6.0.3'
 gem 'mysql2'
 gem 'bcrypt',         '3.1.13'
 gem 'bootstrap-sass', '3.4.1'
+gem 'faker'
 gem 'sass-rails', '5.1.0'
 gem 'webpacker',  '4.0.7'
 gem 'turbolinks', '5.2.0'
 gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.5', require: false
 gem 'unicorn'
+gem 'friendly_id'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]

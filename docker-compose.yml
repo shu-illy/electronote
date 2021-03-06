@@ -11,6 +11,8 @@ services:
       MYSQL_ROOT_PASSWORD: rootpass
       # MYSQL_USER: electronote
       # MYSQL_PASSWORD: password
+    cap_add:
+      - SYS_NICE
   app:
     build:
       context: .

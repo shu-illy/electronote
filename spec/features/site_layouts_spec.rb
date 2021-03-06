@@ -10,7 +10,7 @@ RSpec.describe "IntegrationTest of SiteLayout", type: :feature do
     visit contact_path
     expect(page).to have_title full_title("Contact")
     visit signup_path
-    expect(page).to have_title full_title("Sign up")
+    expect(page).to have_title full_title("新規登録")
   end
       
 end
