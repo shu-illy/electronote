@@ -8,10 +8,10 @@ RSpec.describe "IntegrationTest of UsersProfile", type: :request do
 
   describe "User profile" do
     it "display" do
-      30.times do |n|
+      31.times do |n|
         title  = "circuit#{n+1}"
         description = "test#{n+1}"
-        FactoryBot.create(:work, :day_before_yesterday, title: title, description: description user: @user)
+        FactoryBot.create(:work, :day_before_yesterday, title: title, description: description, user: @user)
       end
       get user_path(@user)
       expect(response).to render_template "users/show"
@@ -19,9 +19,9 @@ RSpec.describe "IntegrationTest of UsersProfile", type: :request do
       expect(response.body).to match /<h1>[\S\s]*<img alt=\"#{full_title(@user.name)}[\S\s]*<\/h1>/
       expect(response.body).to match /<h1>[\S\s]*<img[\S\s]*class=\"gravatar\"[^>]*>[\S\s]*<\/h1>/
       expect(response.body).to match @user.works.count.to_s
-      expect(response.body).to match /<div[^>]*class=\"pagination\"[^>]*>/
+      expect(response.body).to match /<ul[^>]*class=\"pagination\"[^>]*>/
       @user.works.paginate(page: 1).each do |work|
-        expect(response.body).to math micropost.title
+        expect(response.body).to match work.title
       end
     end
   end
