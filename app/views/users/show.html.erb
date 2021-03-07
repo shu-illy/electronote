@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-12">
     <section class="user-info">
       <h1>
         <%= gravatar_for @user %>
@@ -8,4 +8,16 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-12">
+    <%# <% if @user.works.any? %> %>
+      <h3>投稿作品 (<%= @user.works.count %>)</h3>
+      <ol class="works">
+        <%= render @works %>
+      </ol>
+    <%# <% end %> %>
+  </div>
+  <%# <div class="col-md-12"> %>
+  <%= will_paginate @works, class: "center" %>
+  <%# </div> %>
+  
 </div>
