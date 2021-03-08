@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-gem 'rails',      '6.0.3'
+gem 'rails'#,      '6.0.3'
 gem 'mysql2'
 gem 'bcrypt',         '3.1.13'
 gem 'bootstrap-sass', '3.4.1'
@@ -15,6 +15,8 @@ gem 'unicorn'
 gem 'friendly_id'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem "activerecord", ">= 6.0.3.5"
+# gem 'rails-i18n'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]

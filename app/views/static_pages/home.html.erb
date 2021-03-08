@@ -1,0 +1,18 @@
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-３">
+      <section class="micropost_form">
+        <%= link_to "作品を投稿する", new_work_path, class: "btn btn-lg btn-primary col-md-3" %>
+      </section>
+    </aside>
+  </div>
+  
+<% else %>
+  <div class="center jumbotron">
+    <h1>Electronote</h1>
+    <%# <h2>作る喜びを、もっと身近に。</h2> %>
+    <p>ElectroNoteは、電子工作の投稿・検索サービスです。</p>
+
+    <%= link_to "新規登録", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
+<% end %>

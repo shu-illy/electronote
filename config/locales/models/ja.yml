@@ -1,0 +1,13 @@
+# ja:
+#   activerecord:
+#     models:
+#       user: ユーザー
+#       work: 作品
+#     attributes:
+#       user:
+#         name: 名前
+#         email: メールアドレス
+#         password: パスワード
+#       work:
+#         title: 作品名
+#         description: 説明文

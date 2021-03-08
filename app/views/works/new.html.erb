@@ -1,0 +1,31 @@
+<% provide(:title, '作品投稿') %>
+<% provide(:button_text, '投稿') %>
+<h1>作品投稿</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    
+    <%= form_with(model: @work, local: true) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :title, "作品名" %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+<%
+=begin
+%>
+      <%= f.label :circuit, "回路図(後日追加)" %>
+      <%= f.text_field :circuit, class: 'form-control' %>
+
+      <%= f.label :picture, "作品写真(後日追加)" %>
+      <%= f.text_field :picture, class: 'form-control' %>
+<%
+=end
+%>
+      <%= f.label :description, "作品説明" %>
+      <%= f.text_area :description, class: 'form-control', size: "100x5" %>
+
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <% end %>
+
+
+  </div>
+</div>
