@@ -37,8 +37,8 @@ https://electronote.net/
 - Bootstrap
 ### バックエンド
 - Ruby on Rails6.0
-### テスト
-- RSpec
+- Unicorn(アプリケーションサーバ)
+- RSpec(テストフレームワーク)
 ### データベース
 - MySQL
 ### Webサーバ
