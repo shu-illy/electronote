@@ -13,6 +13,13 @@ FactoryBot.define do
     password_confirmation { "test2test" }
   end
 
+  factory :third_user, class: User do
+    name { "Test User3" }
+    email { "test3@test.co.jp" }
+    password { "test3test" }
+    password_confirmation { "test3test" }
+  end
+
   factory :admin_user, class: User do
     name { "Admin User" }
     email { "admin@test.com" }

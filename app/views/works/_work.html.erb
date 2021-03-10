@@ -1,8 +1,12 @@
-<li id="work-<%= work.id %>" class="col-md-4">
+<li id="work-<%= work.id %>" class="col-md-4 col-xs-12">
   <%= link_to gravatar_for(work.user, size: 100), work.user %>
   <span class="work-title"><%= work.title %></span>
   <span class="user"><%= link_to work.user.name, work.user %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(work.created_at) %> ago.
+    <% if current_user?(work.user) %>
+      <%= link_to "削除", work, method: :delete, 
+                            data: { confirm: "投稿を削除しますか？" } %>
+    <% end %>
   </span>
 </li>

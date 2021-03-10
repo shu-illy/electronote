@@ -1,0 +1,11 @@
+<div class="row">
+  <aside class="col-md-３">
+    <section class="work_form">
+      <%= link_to "作品を投稿する", new_work_path, class: "btn btn-lg btn-primary col-md-3" %>
+    </section>
+  </aside>
+  <div class="col-md-12">
+    <h3>最近の投稿</h3>
+    <%= render 'shared/feed' %>
+  </div>
+</div>

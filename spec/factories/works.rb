@@ -19,6 +19,16 @@ FactoryBot.define do
       created_at { Time.zone.now }
     end
 
+    trait :mine do
+      title { "これは私の投稿です" }
+      created_at { 3.minutes.ago }
+    end
+
   end
 
+  factory :work_by_second do
+    title { "作品のタイトル" }
+    description { "説明文" }
+    association :second_user
+  end
 end
