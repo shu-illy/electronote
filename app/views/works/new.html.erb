@@ -9,12 +9,14 @@
       <%= f.label :title, "作品名" %>
       <%= f.text_field :title, class: 'form-control' %>
 
+
+      <%= f.label :diagram, "回路図" %>
+      <span class="diagram">
+        <%= f.file_field :diagram %>
+      </span>
 <%
 =begin
 %>
-      <%= f.label :circuit, "回路図(後日追加)" %>
-      <%= f.text_field :circuit, class: 'form-control' %>
-
       <%= f.label :picture, "作品写真(後日追加)" %>
       <%= f.text_field :picture, class: 'form-control' %>
 <%
@@ -24,6 +26,7 @@
       <%= f.text_area :description, class: 'form-control', size: "100x5" %>
 
       <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
     <% end %>
 
 
