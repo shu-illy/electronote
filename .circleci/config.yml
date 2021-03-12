@@ -29,9 +29,12 @@ jobs:
       - checkout:
           path: ~/electronote
       - ruby/install-deps
+      # - run:
+      #     name: DB setup
+      #     command: bundle exec rails db:schema:load --trace
       - run:
           name: DB setup
-          command: bundle exec rails db:schema:load --trace
+          command: bundle exec rails db:schema:load
       - run:
           name: RSpec test
           command: bin/rspec
