@@ -54,3 +54,5 @@ vendor/bundle/*
 
 *master.key
 
+
+/config/master.key
