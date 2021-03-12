@@ -20,7 +20,7 @@ jobs:
           MYSQL_DATABASE: electronote_test
     environment:
       RAILS_ENV: test
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      # RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       APP_DATABASE_HOST: "127.0.0.1"
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
@@ -43,7 +43,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.7
         environment:
-          BUNDLER_VERSION: 2.2.4
+          BUNDLER_VERSION: 2.2.14
     working_directory: ~/electronote
     steps:
       - checkout
