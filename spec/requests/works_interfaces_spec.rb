@@ -4,6 +4,8 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
   
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:second_user) }  
+  let!(:circuit_path) { File.join(Rails.root, 'spec/factories/test_image.png') }
+  let!(:test_circuit) { Rack::Test::UploadedFile.new(circuit_path) }
 
   describe "Works interface" do
     
@@ -31,11 +33,12 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
       expect(response).to render_template "works/new"
       # 有効な内容を送信
       test_title = "作品名テスト"
-      test_diagram = fixture_file_upload('spec/fixtures/test_image1.png', 'image/png')
+      # test_circuit = fixture_file_upload('spec/fixtures/test_image1.png', 'image/png')
       expect {
-        post works_path, params: { work: { title: test_title, diagram: test_diagram } }
+        post works_path, params: { work: { title: test_title, circuit: test_circuit } }
+        # FactoryBot.create(:work, user: test_user)
       }.to change(Work, :count).by(1)
-      expect(assigns(:work).diagram.attached?).to be_truthy
+      expect(assigns(:work).circuit?).to be_truthy
       expect(response).to redirect_to root_path
       follow_redirect!
       expect(response.body).to match /#{test_title}/

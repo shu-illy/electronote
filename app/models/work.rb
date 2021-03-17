@@ -1,16 +1,15 @@
 class Work < ApplicationRecord
   belongs_to :user
-  has_one_attached :diagram
+  mount_uploader :circuit, CircuitUploader
   default_scope -> { order(created_at: :desc) }
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 100 }
-  validates :diagram, presence: true, 
-                      content_type: { in: %w[image/jpeg image/gif image/png],
-                                      message: "ファイル形式が正しくありません" },
-                      size:   { less_than: 5.megabytes,
-                                message: "5MB以上の画像はアップロードできません" }
+  validate :circuit_filesize
 
-  def display_diagram
-    diagram.variant(resize_to_limit: [500, 500])
-  end
+  private
+    def circuit_filesize
+      if circuit.size > 5.megabytes
+        errors.add(:circuit, "5MB以下のファイルをアップロードしてください")
+      end
+    end
 end

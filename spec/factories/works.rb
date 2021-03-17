@@ -4,9 +4,8 @@ FactoryBot.define do
   factory :work do
     title { "作品のタイトル" }
     description { "説明文" }
-    # diagram { fixture_file_upload Rails.root.join('spec', 'fixtures', 'test_image1.png'), 'image/png' }
-    diagram { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/test_image1.png')) }
-
+    circuit { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/test_image.png'), 'image/png') }
+    # circuit { File.new("#{Rails.root}/spec/factories/test_image.png") }
     association :user
 
     trait :yesterday do

@@ -33,7 +33,7 @@ jobs:
       #     name: DB setup
       #     command: bundle exec rails db:schema:load --trace
       - run:
-          name: DB migrate
+          name: DB setup
           command: bundle exec rails db:migrate
       - run:
           name: RSpec test

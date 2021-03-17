@@ -6,8 +6,12 @@ gem 'image_processing'
 gem 'mini_magick'
 gem 'active_storage_validations'
 gem 'mysql2'
-gem 'bcrypt'#,         '3.1.13'
-gem 'bootstrap-sass'#, '3.4.1'
+gem 'carrierwave'
+gem 'fog-aws'
+gem 'image_processing'
+gem 'mini_magick'
+gem 'bcrypt',         '3.1.13'
+gem 'bootstrap-sass', '3.4.1'
 gem 'faker'
 gem 'sass-rails'#, '5.1.0'
 gem 'webpacker'#,  '4.0.7'
@@ -26,6 +30,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
+  gem 'dotenv-rails'
 end
 
 group :development do

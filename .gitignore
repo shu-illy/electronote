@@ -54,5 +54,5 @@ vendor/bundle/*
 
 *master.key
 
+public/uploads
 
-/config/master.key

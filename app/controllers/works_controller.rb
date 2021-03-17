@@ -27,7 +27,7 @@ class WorksController < ApplicationController
   private
     
     def work_params
-      params.require(:work).permit(:title, :diagram)
+      params.require(:work).permit(:title, :description, :circuit)
     end
 
     def correct_user
