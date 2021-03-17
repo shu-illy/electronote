@@ -4,7 +4,6 @@ RSpec.describe Work, type: :model do
 
   before do
     @user = FactoryBot.create(:user)
-    sleep(1)
     @work = FactoryBot.create(:work, user: @user)
   end
 

@@ -1,5 +1,3 @@
-# include ActionDispatch::TestProcess
-
 FactoryBot.define do
   factory :work do
     title { "作品のタイトル" }

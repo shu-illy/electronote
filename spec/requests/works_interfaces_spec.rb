@@ -19,9 +19,11 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
     end
     
     it "is valid" do
-      # ログイン->新規投稿ページに移動
+      # ログイン
       log_in_as(test_user)
+      # ルートパスにアクセス
       get root_path
+      # ページネーションが表示されていること
       expect(response.body).to match /<div[^>]*pagination[^>]*>/
       get new_work_path
       expect(response.body).to match /<input[^>]*type="file"[^>]*>/
@@ -43,12 +45,17 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
       follow_redirect!
       expect(response.body).to match /#{test_title}/
       # 投稿削除
+      # 'delete'のaタグがあること
       expect(response.body).to match /<a[^>]*>削除<\/a>/
+      # ログイン中ユーザーの1番目の投稿を取得
       first_work = test_user.works.paginate(page: 1).first
+      # 削除すると、投稿数が1減ること
       expect {
         delete work_path(first_work)
       }.to change(Work, :count).by(-1)
+      # 違うユーザーのプロフィールにアクセス
       get user_path(other_user)
+      # 削除リンクがないこと
       expect(response.body).not_to match /<a[^>]*>削除<\/a>/
     end
   end

@@ -21,6 +21,5 @@ users = User.order(:created_at).take(6)
 50.times do
   title = Faker::Lorem.sentence(word_count: 5)
   description = Faker::Lorem.sentence(word_count: 10)
-  FactoryBot.create(:work, user: user, title: title, description: description)
-  # users.each { |user| user.works.create!(title: title, description: description) }
+  users.each { |user| user.works.create!(title: title, description: description) }
 end

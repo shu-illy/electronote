@@ -8,7 +8,7 @@ class WorksController < ApplicationController
 
   def create
     @work = current_user.works.build(work_params)
-    @work.diagram.attach(params[:work][:diagram])
+    
     if @work.save
       flash[:success] = "作品が投稿されました!"
       redirect_to root_url
