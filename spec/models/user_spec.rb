@@ -90,7 +90,7 @@ RSpec.describe User, type: :model do
     # ユーザーを削除したら投稿も削除されること
     it "is deleted with associated works" do
       @user.save
-      @user.works.create!(title: "Test circuit")
+      FactoryBot.create(:work, user: @user)
       expect {
         @user.destroy
       }.to change(Work, :count).by(-1)
