@@ -4,6 +4,8 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
   
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:second_user) }  
+  let!(:circuit_path) { File.join(Rails.root, 'spec/factories/test_image.png') }
+  let!(:test_circuit) { Rack::Test::UploadedFile.new(circuit_path) }
 
   describe "Works interface" do
     
@@ -23,6 +25,8 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
       get root_path
       # ページネーションが表示されていること
       expect(response.body).to match /<div[^>]*pagination[^>]*>/
+      get new_work_path
+      expect(response.body).to match /<input[^>]*type="file"[^>]*>/
       # 無効な内容を送信
       expect {
         post works_path, params: { work: { title: "" } }
@@ -30,15 +34,15 @@ RSpec.describe "IntegrationTest of WorksInterfaces", type: :request do
       expect(response.body).to match /<div[^>]*id="[^"]*error[^"]*"[^>]*>/
       expect(response).to render_template "works/new"
       # 有効な内容を送信
-      # 投稿数が1増えること
       test_title = "作品名テスト"
+      # test_circuit = fixture_file_upload('spec/fixtures/test_image1.png', 'image/png')
       expect {
-        post works_path, params: { work: { title: test_title } }
+        post works_path, params: { work: { title: test_title, circuit: test_circuit } }
+        # FactoryBot.create(:work, user: test_user)
       }.to change(Work, :count).by(1)
-      # root_urlにリダイレクトされること
+      expect(assigns(:work).circuit?).to be_truthy
       expect(response).to redirect_to root_path
       follow_redirect!
-      # 送信内容とレスポンスのボディが一致すること
       expect(response.body).to match /#{test_title}/
       # 投稿削除
       # 'delete'のaタグがあること

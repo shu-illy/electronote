@@ -1,6 +1,6 @@
 <li id="work-<%= work.id %>" class="col-md-4 col-xs-12">
   <% if work.circuit? %>
-    <%= image_tag(work.circuit.url, size: 100, class: "work-icon")  %>
+    <%= image_tag(work.circuit.thumb.url, class: "work-icon")  %>
   <% else %>
     <%= link_to gravatar_for(work.user, size: 100), work.user %>
   <% end %>
