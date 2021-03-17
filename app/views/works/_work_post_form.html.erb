@@ -3,14 +3,15 @@
   <%= f.label :title, "作品名" %>
   <%= f.text_field :title, class: 'form-control' %>
 
+  <%= f.label :circuit, "回路図ファイル" %>
+  <%= f.file_field :circuit, accept: "image/jpeg,image/gif,image/png" %>
 
-  <%= f.label :diagram, "回路図" %>
-  <span class="diagram">
-    <%= f.file_field :diagram, accept: "image/jpeg,image/gif,image/png" %>
-  </span>
 <%
 =begin
 %>
+  <%= f.label :circuit, "回路図(後日追加)" %>
+  <%= f.text_field :circuit, class: 'form-control' %>
+
   <%= f.label :picture, "作品写真(後日追加)" %>
   <%= f.text_field :picture, class: 'form-control' %>
 <%
@@ -20,15 +21,14 @@
   <%= f.text_area :description, class: 'form-control', size: "100x5" %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
-
 <% end %>
 
 <script type="text/javascript">
-  $("#work_diagram").bind("change", function() {
+  $("#work_circuit").bind("change", function() {
     var size_in_megabytes = this.files[0].size/1024/1024;
     if (size_in_megabytes > 5) {
-      alert("画像ファイルは最大5MBです。");
-      $("#work_diagram").val("");
+      alert("回路図ファイルの最大サイズは5MBまでです。");
+      $("#work_circuit").val("");
     }
   });
 </script>
