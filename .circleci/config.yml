@@ -11,7 +11,7 @@ jobs:
       - image: circleci/ruby:2.7
         environment:
           BUNDLER_VERSION: 2.1.4
-      - image: circleci/mysql:8
+      - image: circleci/mysql:8.0.4
         command: --default-authentication-plugin=mysql_native_password
         environment:
           MYSQL_ALLOW_EMPTY_PASSWORD: true
@@ -32,6 +32,9 @@ jobs:
       # - run:
       #     name: DB setup
       #     command: bundle exec rails db:schema:load --trace
+      - run:
+          name: DB 
+          command: bundle exec rails db:create
       - run:
           name: DB migrate
           command: bundle exec rails db:migrate
