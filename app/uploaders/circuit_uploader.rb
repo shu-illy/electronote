@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CircuitUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -21,8 +23,6 @@ class CircuitUploader < CarrierWave::Uploader::Base
     end
   end
 
-  
-
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:
@@ -41,14 +41,14 @@ class CircuitUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :thumb do
     # process resize_to_fit: [100, 100]
-    process resize_and_pad: [100, 100, "#ffffff", "Center"]
+    process resize_and_pad: [100, 100, '#ffffff', 'Center']
   end
 
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # アップロード可能な拡張子のリスト
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
 
   # Override the filename of the uploaded files:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -11,7 +13,7 @@ module Electronote
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
     config.generators do |g|
-      g.test_framework :rspec,
+      g.test_framework  :rspec,
                         controller_specs: false,
                         view_specs: false
     end

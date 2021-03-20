@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def new
   end
@@ -5,14 +7,11 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user&.authenticate(params[:session][:password])
-      # ログイン後にユーザー情報のページにリダイレクト
       log_in @user
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      # redirect_to @user
       redirect_back_or(@user)
     else
-      # エラーメッセージを返してnewをレンダリング
-      flash.now[:danger] = "メールアドレスまたはパスワードが正しくありません"
+      flash.now[:danger] = 'メールアドレスまたはパスワードが正しくありません'
       render 'new'
     end
   end

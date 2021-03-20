@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Work < ApplicationRecord
   belongs_to :user
   mount_uploader :circuit, CircuitUploader
@@ -7,9 +9,10 @@ class Work < ApplicationRecord
   validate :circuit_filesize
 
   private
-    def circuit_filesize
-      if circuit.size > 5.megabytes
-        errors.add(:circuit, "5MB以下のファイルをアップロードしてください")
-      end
-    end
+
+  def circuit_filesize
+    return unless circuit.size > 5.megabytes
+
+    errors.add(:circuit, '5MB以下のファイルをアップロードしてください')
+  end
 end

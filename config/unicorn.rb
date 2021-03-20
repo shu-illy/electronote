@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $worker = 2
 $timeout = 30
 # $app_dir = File.expand_path "../", __FILE__
@@ -14,9 +16,7 @@ stdout_path $stdout_log
 stderr_path $stderr_log
 timeout $timeout
 listen $listen
-# listen 3000
 pid $pid
-
 
 # ホットデプロイをするかしないかを設定
 preload_app true
@@ -27,7 +27,7 @@ before_fork do |server, worker|
   old_pid = "#{server.config[:pid]}.oldbin"
   if old_pid != server.pid
     begin
-      Process.kill "QUIT", File.read(old_pid).to_i
+      Process.kill 'QUIT', File.read(old_pid).to_i
     rescue Errno::ENOENT, Errno::ESRCH
     end
   end

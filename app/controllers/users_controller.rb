@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
@@ -20,7 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in @user
-      flash[:success] = "Welcome to ErectroNote"
+      flash[:success] = 'Welcome to ErectroNote'
       redirect_to @user
     else
       render 'new'
@@ -34,7 +36,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "プロフィールが更新されました。"
+      flash[:success] = 'プロフィールが更新されました。'
       redirect_to @user
     else
       render 'edit'
@@ -43,24 +45,24 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "ユーザーを削除しました。"
+    flash[:success] = 'ユーザーを削除しました。'
     redirect_to users_url
   end
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 
-    # before filter
+  # before filter
 
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless current_user?(@user)
-    end
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url) unless current_user?(@user)
+  end
 
-    def admin_user
-      redirect_to(users_path) unless current_user.admin?
-    end
+  def admin_user
+    redirect_to(users_path) unless current_user.admin?
+  end
 end
