@@ -8,25 +8,29 @@ FactoryBot.define do
     password_confirmation { 'testtest' }
   end
 
-  factory :second_user, class: User do
+  factory :second_user, parent: :user do
     name { 'Test User2' }
     email { 'test2@test.co.jp' }
-    password { 'test2test' }
-    password_confirmation { 'test2test' }
   end
 
-  factory :third_user, class: User do
+  factory :third_user, parent: :user do
     name { 'Test User3' }
     email { 'test3@test.co.jp' }
-    password { 'test3test' }
-    password_confirmation { 'test3test' }
   end
 
-  factory :admin_user, class: User do
+  factory :admin_user, parent: :user do
     name { 'Admin User' }
     email { 'admin@test.com' }
-    password { 'testtest' }
-    password_confirmation { 'testtest' }
     admin { true }
+  end
+
+  factory :follower, parent: :user do
+    name { 'Follower' }
+    email { 'follower@test.co.jp' }
+  end
+
+  factory :followed, parent: :user do
+    name { 'Followed' }
+    email { 'follwed@test.co.jp' }
   end
 end

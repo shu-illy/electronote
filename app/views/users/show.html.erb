@@ -1,19 +1,15 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-12">
-    <section class="user-info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-  <div class="col-md-12">
-    <h3>投稿作品 (<%= @user.works.count %>)</h3>
+<%# <div class="row"> %>
+  <%# <aside> %>
+  
+  <%= render 'users/profile' %>
+  <%# </aside> %>
+  <div class="row">
+    <h3 class="col-md-12">投稿作品 (<%= @user.works.count %>)</h3>
     <ol class="works">
       <%= render @works %>
     </ol>
   </div>
   <%= will_paginate @works, class: "center" %>
   
-</div>
+<%# </div> %>

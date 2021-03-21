@@ -3,10 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'UnitTest of users controller', type: :request do
-  before do
-    @user = FactoryBot.create(:user)
-    @other_user = FactoryBot.create(:second_user)
-  end
+
+  let!(:test_user) { FactoryBot.create(:user) }
+  let!(:other_user) { FactoryBot.create(:second_user) }
 
   describe 'GET signup_path' do
     it 'return success' do
@@ -27,7 +26,7 @@ RSpec.describe 'UnitTest of users controller', type: :request do
   describe 'Edit' do
     context 'without login' do
       it 'is redirected' do
-        get edit_user_path(@user)
+        get edit_user_path(test_user)
         expect(flash).not_to be_empty
         expect(response).to redirect_to login_url
       end
@@ -35,8 +34,8 @@ RSpec.describe 'UnitTest of users controller', type: :request do
 
     context 'by other user' do
       it 'is redirected to root_url' do
-        log_in_as(@other_user)
-        get edit_user_path(@user)
+        log_in_as(other_user)
+        get edit_user_path(test_user)
         expect(flash).to be_empty
         expect(response).to redirect_to root_url
       end
@@ -46,8 +45,8 @@ RSpec.describe 'UnitTest of users controller', type: :request do
   describe 'Update' do
     context 'without login' do
       it 'is redirected' do
-        patch user_path(@user), params: { user: { name: @user.name,
-                                                  email: @user.email } }
+        patch user_path(test_user), params: { user: { name: test_user.name,
+                                                  email: test_user.email } }
         expect(flash).not_to be_empty
         expect(response).to redirect_to login_url
       end
@@ -55,20 +54,20 @@ RSpec.describe 'UnitTest of users controller', type: :request do
 
     context 'by other user' do
       it 'is redirected to root_url' do
-        log_in_as(@other_user)
-        patch user_path(@user), params: { user: { name: @user.name,
-                                                  email: @user.email } }
+        log_in_as(other_user)
+        patch user_path(test_user), params: { user: { name: test_user.name,
+                                                  email: test_user.email } }
         expect(flash).to be_empty
         expect(response).to redirect_to root_url
       end
 
       it 'is not allowed the admin attribute to be edited via the web' do
-        log_in_as(@other_user)
-        expect(@other_user.admin?).to be_falsey
-        patch user_path(@other_user), params: { user: { password: @other_user.password,
-                                                        password_confirmation: @other_user.password,
+        log_in_as(other_user)
+        expect(other_user.admin?).to be_falsey
+        patch user_path(other_user), params: { user: { password: other_user.password,
+                                                        password_confirmation: other_user.password,
                                                         admin: true } }
-        expect(@other_user.reload.admin?).to be_falsey
+        expect(other_user.reload.admin?).to be_falsey
       end
     end
   end
@@ -82,7 +81,7 @@ RSpec.describe 'UnitTest of users controller', type: :request do
     context 'without login' do
       it 'is redirected' do
         expect {
-          delete user_path(@user)
+          delete user_path(test_user)
         }.to change(User, :count).by(0)
         expect(response).to redirect_to login_path
       end
@@ -91,11 +90,29 @@ RSpec.describe 'UnitTest of users controller', type: :request do
     # ログインしているがadminでない場合は削除できず、ユーザー一覧にリダイレクトされること
     context 'with login by general user' do
       it 'is redirected' do
-        log_in_as(@user)
+        log_in_as(test_user)
         expect {
           delete user_path(@admin_user)
         }.to change(User, :count).by(0)
         expect(response).to redirect_to users_path
+      end
+    end
+  end
+
+  describe 'GET following_user_path' do
+    context 'without login' do
+      it 'is redirected' do
+        get following_user_path(test_user)
+        expect(response).to redirect_to login_url
+      end
+    end
+  end
+
+  describe 'GET followers_user_path' do
+    context 'without login' do
+      it 'is redirected' do
+        get followers_user_path(test_user)
+        expect(response).to redirect_to login_url
       end
     end
   end

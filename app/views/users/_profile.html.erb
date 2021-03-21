@@ -1,0 +1,16 @@
+<div class="user-profile row row-eq-height">
+  <div class="col-md-3">
+    <%= gravatar_for @user, size: 200 %>
+    <h1>
+      <%= @user.name %>
+    </h1>
+    <section class="follow-button">
+      <%= render 'follow_form' if logged_in? %>
+    </section>
+    <section class="stats">
+      <%= render 'shared/stats' %>
+    </section>
+  </div>
+  <div class="col-md-9">
+  </div>
+</div>

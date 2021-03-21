@@ -117,7 +117,10 @@ Metrics/CyclomaticComplexity:
   Max: 10
 
 Metrics/MethodLength:
-  Max: 13
+  Max: 20
+  Exclude:
+    - "db/**/*.rb"
+    - "db/*.rb"
 
 Metrics/PerceivedComplexity:
   Max: 10
@@ -126,6 +129,7 @@ Metrics/BlockLength:
   Max: 30
   Exclude:
     - 'spec/**/*'
+    - 'db/**/*'
 
 Style/BlockDelimiters:
   Exclude:
@@ -168,9 +172,3 @@ Style/SymbolArray:
 # 読みにくくなるので除外
 Style/WordArray:
   Enabled: false
-
-# migration以外は最大20行に
-Metrics/MethodLength:
-  Max: 20
-  Exclude:
-    - "db/migrate/*.rb"
