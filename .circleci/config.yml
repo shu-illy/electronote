@@ -40,7 +40,7 @@ jobs:
           command: bundle exec rails db:migrate
       - run:
           name: Rubocop check
-          command: rubocop
+          command: bundle exec rubocop
       - run:
           name: RSpec test
           command: bin/rspec
