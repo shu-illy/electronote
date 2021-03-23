@@ -18,7 +18,7 @@ RSpec.describe 'IntegrationTest of UsersProfile', type: :request do
       expect(response).to render_template 'users/show'
       expect(response.body).to include "<title>#{full_title(@user.name)}"
       expect(response.body).to match(%r{<h1>[\S\s]*<img alt="#{full_title(@user.name)}[\S\s]*</h1>})
-      expect(response.body).to match(%r{<img[\S\s]*class="gravatar"[^>]*>[\S\s]})
+      expect(response.body).to match(/<img[\S\s]*class="gravatar"[^>]*>[\S\s]/)
       expect(response.body).to match @user.works.count.to_s
       expect(response.body).to match(/<ul[^>]*class="pagination"[^>]*>/)
       @user.works.paginate(page: 1).each do |work|

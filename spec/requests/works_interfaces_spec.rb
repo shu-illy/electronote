@@ -22,7 +22,7 @@ RSpec.describe 'IntegrationTest of WorksInterfaces', type: :request do
       # ルートパスにアクセス
       get root_path
       # ページネーションが表示されていること
-      expect(response.body).to match(/<div[^>]*pagination[^>]*>/)
+      expect(response.body).to match(/<ul[^>]*pagination[^>]*>/)
       get new_work_path
       expect(response.body).to match(/<input[^>]*type="file"[^>]*>/)
       # 無効な内容を送信

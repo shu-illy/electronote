@@ -3,7 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'UnitTest of users controller', type: :request do
-
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:second_user) }
 
@@ -46,7 +45,7 @@ RSpec.describe 'UnitTest of users controller', type: :request do
     context 'without login' do
       it 'is redirected' do
         patch user_path(test_user), params: { user: { name: test_user.name,
-                                                  email: test_user.email } }
+                                                      email: test_user.email } }
         expect(flash).not_to be_empty
         expect(response).to redirect_to login_url
       end
@@ -56,7 +55,7 @@ RSpec.describe 'UnitTest of users controller', type: :request do
       it 'is redirected to root_url' do
         log_in_as(other_user)
         patch user_path(test_user), params: { user: { name: test_user.name,
-                                                  email: test_user.email } }
+                                                      email: test_user.email } }
         expect(flash).to be_empty
         expect(response).to redirect_to root_url
       end
@@ -65,8 +64,8 @@ RSpec.describe 'UnitTest of users controller', type: :request do
         log_in_as(other_user)
         expect(other_user.admin?).to be_falsey
         patch user_path(other_user), params: { user: { password: other_user.password,
-                                                        password_confirmation: other_user.password,
-                                                        admin: true } }
+                                                       password_confirmation: other_user.password,
+                                                       admin: true } }
         expect(other_user.reload.admin?).to be_falsey
       end
     end

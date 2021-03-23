@@ -21,7 +21,7 @@
       <ul class="users follow">
         <%= render @users %>
       </ul>
-      <%= will_paginate %>
+      <%= will_paginate @users, class: "center" %>
     <% end %>
   </div>
 </div>

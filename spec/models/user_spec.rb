@@ -106,5 +106,37 @@ RSpec.describe User, type: :model do
       test_follower.unfollow(test_followed)
       expect(test_follower.following?(test_followed)).to be_falsey
     end
+
+    context 'in feed page' do
+      # フォローしているユーザーの投稿がフィードに表示されること
+      # 自分の投稿がフィードに表示されること
+      # フォローしていないユーザーがフィードに表示されないこと
+      let!(:test_user) { FactoryBot.create(:user) }
+      let!(:following_user) { FactoryBot.create(:followed) }
+      let!(:other_user) { FactoryBot.create(:second_user) }
+      let!(:test_follow) { FactoryBot.create(:follow_relationship, follower_id: test_user.id, followed_id: following_user.id) }
+      it 'sees works of following user' do
+        FactoryBot.create(:work, user: following_user)
+        following_user.works.each do |work_following|
+          expect(test_user.feed.include?(work_following)).to be_truthy
+        end
+      end
+
+      it 'sees his/her works' do
+        FactoryBot.create(:work, user: test_user)
+        test_user.works.each do |work_self|
+          expect(test_user.feed.include?(work_self)).to be_truthy
+        end
+      end
+
+      it 'does not see works of non-following user' do
+        FactoryBot.create(:work, user: other_user)
+        other_user.works.each do |work_other|
+          expect(test_user.feed.include?(work_other)).to be_falsey
+        end
+      end
+    end
+    
+
   end
 end
