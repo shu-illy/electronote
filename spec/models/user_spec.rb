@@ -114,7 +114,9 @@ RSpec.describe User, type: :model do
       let!(:test_user) { FactoryBot.create(:user) }
       let!(:following_user) { FactoryBot.create(:followed) }
       let!(:other_user) { FactoryBot.create(:second_user) }
-      let!(:test_follow) { FactoryBot.create(:follow_relationship, follower_id: test_user.id, followed_id: following_user.id) }
+      let!(:test_follow) {
+        FactoryBot.create(:follow_relationship, follower_id: test_user.id, followed_id: following_user.id)
+      }
       it 'sees works of following user' do
         FactoryBot.create(:work, user: following_user)
         following_user.works.each do |work_following|
@@ -136,7 +138,5 @@ RSpec.describe User, type: :model do
         end
       end
     end
-    
-
   end
 end

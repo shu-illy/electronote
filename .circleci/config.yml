@@ -42,7 +42,7 @@ jobs:
           name: RSpec test
           command: bin/rspec
       # TODO: RubocopとRSpec構築したらコメントアウト外して、上のテストを削除
-      # - ruby/rubocop-check
+      - ruby/rubocop-check
       # - ruby/rspec-test
 
   db-migrate-on-task-run:

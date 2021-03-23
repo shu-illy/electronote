@@ -12,5 +12,6 @@ require 'rails_helper'
 #     end
 #   end
 # end
-RSpec.describe FollowRelationshipsHelper, type: :helper do
-end
+
+# RSpec.describe FollowRelationshipsHelper, type: :helper do
+# end

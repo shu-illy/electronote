@@ -86,7 +86,7 @@ RSpec.describe 'IntegrationTest of Followings', type: :request do
       get root_path
       @test_user.feed.paginate(page: 1).each do |work|
         # expect(response.body).to match /#{CGI.escapeHTML(work.content)}/
-        expect(response.body).to match /#{CGI.escapeHTML(work.content)}/
+        expect(response.body).to match(/#{CGI.escapeHTML(work.content)}/)
       end
     end
   end

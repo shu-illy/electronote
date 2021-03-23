@@ -58,7 +58,7 @@ class User < ApplicationRecord
   end
 
   def feed
-    following_ids = "SELECT followed_id FROM follow_relationships WHERE follower_id = :user_id"
+    following_ids = 'SELECT followed_id FROM follow_relationships WHERE follower_id = :user_id'
     Work.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
