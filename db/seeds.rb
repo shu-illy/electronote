@@ -23,5 +23,14 @@ users = User.order(:created_at).take(6)
 50.times do
   title = Faker::Lorem.sentence(word_count: 5)
   description = Faker::Lorem.sentence(word_count: 10)
-  users.each { |user| user.works.create!(title: title, description: description) }
+  circuit = Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/picture/test_circuit.png'), 'image/png')
+  users.each { |user| user.works.create!(title: title, description: description, circuit: circuit) }
 end
+
+# リレーションシップ作成
+users = User.all
+user = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

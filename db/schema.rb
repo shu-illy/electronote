@@ -12,7 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_16_142116) do
+ActiveRecord::Schema.define(version: 2021_03_20_064418) do
+  create_table 'follow_relationships', charset: 'utf8', force: :cascade do |t|
+    t.bigint 'follower_id'
+    t.bigint 'followed_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['followed_id'], name: 'index_follow_relationships_on_followed_id'
+    t.index ['follower_id', 'followed_id'], name: 'index_follow_relationships_on_follower_id_and_followed_id',
+                                            unique: true
+    t.index ['follower_id'], name: 'index_follow_relationships_on_follower_id'
+  end
+
   create_table 'users', charset: 'utf8', force: :cascade do |t|
     t.string 'name'
     t.string 'email'

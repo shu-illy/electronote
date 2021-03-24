@@ -38,11 +38,14 @@ jobs:
       - run:
           name: DB migrate
           command: bundle exec rails db:migrate
+      - ruby/rubocop-check
+      # - run:
+      #     name: Rubocop check
+      #     command: bundle exec rubocop
       - run:
           name: RSpec test
           command: bin/rspec
       # TODO: RubocopとRSpec構築したらコメントアウト外して、上のテストを削除
-      # - ruby/rubocop-check
       # - ruby/rspec-test
 
   db-migrate-on-task-run:

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'IntegrationTest of WorksInterfaces', type: :request do
   let!(:test_user) { FactoryBot.create(:user) }
   let!(:other_user) { FactoryBot.create(:second_user) }
-  let!(:circuit_path) { File.join(Rails.root, 'spec/factories/test_image.png') }
+  let!(:circuit_path) { File.join(Rails.root, 'spec/factories/picture/test_circuit.png') }
   let!(:test_circuit) { Rack::Test::UploadedFile.new(circuit_path) }
 
   describe 'Works interface' do
@@ -22,7 +22,7 @@ RSpec.describe 'IntegrationTest of WorksInterfaces', type: :request do
       # ルートパスにアクセス
       get root_path
       # ページネーションが表示されていること
-      expect(response.body).to match(/<div[^>]*pagination[^>]*>/)
+      expect(response.body).to match(/<ul[^>]*pagination[^>]*>/)
       get new_work_path
       expect(response.body).to match(/<input[^>]*type="file"[^>]*>/)
       # 無効な内容を送信

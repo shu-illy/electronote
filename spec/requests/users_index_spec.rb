@@ -31,7 +31,7 @@ RSpec.describe 'IntegrationTest of UsersIndex', type: :request do
         first_page_of_users.each do |user|
           expect(response.body).to match(/[\S\s]*<a[\S\s]*href="#{user_path(user)}">#{user.name}[\S\s]*/)
           unless user.admin?
-            expect(response.body).to match(/[\S\s]*#{user_path(user)}">delete[\S\s]*/)
+            expect(response.body).to match(/[\S\s]*#{user_path(user)}">削除[\S\s]*/)
           end
         end
         expect {

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Works', type: :request do
+RSpec.describe 'UnitTest of works controller', type: :request do
   # before do
   #   test_user = FactoryBot.create(:user)
   #   test_work = FactoryBot.create(:work, user: test_user)
