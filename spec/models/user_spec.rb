@@ -1,5 +1,22 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  admin           :boolean          default(FALSE)
+#  email           :string(255)
+#  name            :string(255)
+#  password_digest :string(255)
+#  remember_digest :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -125,7 +142,9 @@ RSpec.describe User, type: :model do
       end
 
       it 'sees his/her works' do
+        # binding.pry
         FactoryBot.create(:work, user: test_user)
+        # binding.pry
         test_user.works.each do |work_self|
           expect(test_user.feed.include?(work_self)).to be_truthy
         end

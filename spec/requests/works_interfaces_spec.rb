@@ -7,6 +7,9 @@ RSpec.describe 'IntegrationTest of WorksInterfaces', type: :request do
   let!(:other_user) { FactoryBot.create(:second_user) }
   let!(:circuit_path) { File.join(Rails.root, 'spec/factories/picture/test_circuit.png') }
   let!(:test_circuit) { Rack::Test::UploadedFile.new(circuit_path) }
+  let!(:test_follow) {
+    FactoryBot.create(:follow_relationship, follower_id: test_user.id, followed_id: other_user.id)
+  }
 
   describe 'Works interface' do
     before do
@@ -32,7 +35,7 @@ RSpec.describe 'IntegrationTest of WorksInterfaces', type: :request do
       expect(response.body).to match(/<div[^>]*id="[^"]*error[^"]*"[^>]*>/)
       expect(response).to render_template 'works/new'
       # 有効な内容を送信
-      test_title = '作品名テスト'
+      test_title = 'valid_work_name'
       # test_circuit = fixture_file_upload('spec/fixtures/test_image1.png', 'image/png')
       expect {
         post works_path, params: { work: { title: test_title, circuit: test_circuit } }

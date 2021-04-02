@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,38 +11,38 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2021_03_20_064418) do
-  create_table 'follow_relationships', charset: 'utf8', force: :cascade do |t|
-    t.bigint 'follower_id'
-    t.bigint 'followed_id'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['followed_id'], name: 'index_follow_relationships_on_followed_id'
-    t.index ['follower_id', 'followed_id'], name: 'index_follow_relationships_on_follower_id_and_followed_id',
-                                            unique: true
-    t.index ['follower_id'], name: 'index_follow_relationships_on_follower_id'
+
+  create_table "follow_relationships", charset: "utf8", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followed_id"], name: "index_follow_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_follow_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_follow_relationships_on_follower_id"
   end
 
-  create_table 'users', charset: 'utf8', force: :cascade do |t|
-    t.string 'name'
-    t.string 'email'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'password_digest'
-    t.string 'remember_digest'
-    t.boolean 'admin', default: false
-    t.index ['email'], name: 'index_users_on_email', unique: true
+  create_table "users", charset: "utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.string "remember_digest"
+    t.boolean "admin", default: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  create_table 'works', charset: 'utf8', force: :cascade do |t|
-    t.string 'title'
-    t.text 'description'
-    t.bigint 'user_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.string 'circuit'
-    t.index ['user_id', 'created_at'], name: 'index_works_on_user_id_and_created_at'
-    t.index ['user_id'], name: 'index_works_on_user_id'
+  create_table "works", charset: "utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "circuit"
+    t.index ["user_id", "created_at"], name: "index_works_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_works_on_user_id"
   end
 
-  add_foreign_key 'works', 'users'
+  add_foreign_key "works", "users"
 end

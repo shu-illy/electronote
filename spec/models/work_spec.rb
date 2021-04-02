@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: works
+#
+#  id          :bigint           not null, primary key
+#  circuit     :string(255)
+#  description :text(65535)
+#  title       :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
+#
+# Indexes
+#
+#  index_works_on_user_id                 (user_id)
+#  index_works_on_user_id_and_created_at  (user_id,created_at)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 require 'rails_helper'
 
 RSpec.describe Work, type: :model do

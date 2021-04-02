@@ -1,5 +1,22 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  admin           :boolean          default(FALSE)
+#  email           :string(255)
+#  name            :string(255)
+#  password_digest :string(255)
+#  remember_digest :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_email  (email) UNIQUE
+#
 class User < ApplicationRecord
   has_many :works, dependent: :destroy
   has_many :active_relationships, class_name: 'FollowRelationship',
@@ -60,6 +77,8 @@ class User < ApplicationRecord
   def feed
     following_ids = 'SELECT followed_id FROM follow_relationships WHERE follower_id = :user_id'
     Work.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+    # part_of_feed = "follow_relationships.follower_id = :id or works.user_id = :id"
+    # Work.joins(user: :followers).where(part_of_feed, { id: id }).distinct
   end
 
   def follow(other_user)

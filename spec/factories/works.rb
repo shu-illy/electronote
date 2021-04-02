@@ -1,9 +1,30 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: works
+#
+#  id          :bigint           not null, primary key
+#  circuit     :string(255)
+#  description :text(65535)
+#  title       :string(255)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :bigint           not null
+#
+# Indexes
+#
+#  index_works_on_user_id                 (user_id)
+#  index_works_on_user_id_and_created_at  (user_id,created_at)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (user_id => users.id)
+#
 FactoryBot.define do
   factory :work do
-    title { '作品のタイトル' }
-    description { '説明文' }
+    title { 'Title of Work' }
+    description { 'Test description' }
     circuit {
       Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/picture/test_circuit.png'), 'image/png')
     }
