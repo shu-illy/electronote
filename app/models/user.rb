@@ -75,10 +75,10 @@ class User < ApplicationRecord
   end
 
   def feed
-    following_ids = 'SELECT followed_id FROM follow_relationships WHERE follower_id = :user_id'
-    Work.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
-    # part_of_feed = "follow_relationships.follower_id = :id or works.user_id = :id"
-    # Work.joins(user: :followers).where(part_of_feed, { id: id }).distinct
+    # following_ids = 'SELECT followed_id FROM follow_relationships WHERE follower_id = :user_id'
+    # Work.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
+    part_of_feed = 'follow_relationships.follower_id = :id or works.user_id = :id'
+    Work.eager_load(user: :followers).where(part_of_feed, { id: id }).distinct
   end
 
   def follow(other_user)
